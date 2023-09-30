@@ -17,7 +17,9 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 $router->group(["prefix" => "api"], function () use ($router) {
-    $router->post("max", "ApiController@getMax");
-    $router->post("prime", "ApiController@isPrime");
-    $router->post("sort", "ApiController@sortWord");
+    $router->group(["middleware" => App\Http\Middleware\Logger::class], function () use ($router) {
+        $router->post("max", "ApiController@getMax");
+        $router->post("prime", "ApiController@isPrime");
+        $router->post("sort", "ApiController@sortWord");
+    });
 });
